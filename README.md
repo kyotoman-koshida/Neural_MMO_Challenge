@@ -211,7 +211,7 @@ For participants using windows, we strongly recommend you to install `wsl`.
 
 #### 5. How can I render/save replay locally?
 
-Please refer to [Neural MMO Environment Tutorial](https://www.aicrowd.com/showcase/neurips-2022-neural-mmo-challenge-tutorial) for an instruction about how to render locally.
+Please refer to [Unity viewer tutorial](https://www.aicrowd.com/showcase/how-to-render-replay-with-unity-client) for an instruction about how to render locally.
 
 #### 6. `Error: Pack Exceeds Maximum Allowed Size`?
 
