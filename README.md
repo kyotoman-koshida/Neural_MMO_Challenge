@@ -54,9 +54,9 @@ pip install git+http://gitlab.aicrowd.com/neural-mmo/neurips2022-nmmo.git
 pip install -r requirements_tool.txt
 ```
 
-> This competition is based on MeuralMMO v1.6 version. 
+> This competition is based on NeuralMMO v1.6 version. 
 > 
-> For more information about MeuralMMO v1.6, please refer to https://github.com/NeuralMMO/environment/tree/v1.6.
+> For more information about NeuralMMO v1.6, please refer to https://github.com/NeuralMMO/environment/tree/v1.6.
 
 ### Make your first submission
 

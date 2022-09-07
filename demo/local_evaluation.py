@@ -5,8 +5,9 @@ from neurips2022nmmo import CompetitionConfig, RollOut, scripted, submission
 
 def evaluate(submission_path: str):
     config = CompetitionConfig()
+    config.SAVE_REPLAY = "eval"
     # uncomment the code below if you want to render locally
-    config.RENDER = True
+    # config.RENDER = True
 
     my_team = submission.get_team_from_submission(
         submission_path=submission_path,
