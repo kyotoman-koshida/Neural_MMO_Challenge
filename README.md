@@ -124,6 +124,16 @@ python tool.py test
 
 2. To submit your submission to AIcrowd gitlab.
 
+(**Caution**) Add `offline: true` in `aicrowd.json` if you use Offline Learning, e.g.
+```json
+{
+    "challenge_id" : "neurips-2022-the-neural-mmo-challenge",
+    "authors" : [],
+    "offline": true,
+    "description" : "Brief description for your submission"
+}
+````
+
 ```bash
 python tool.py submit <unique-submission-name>
 ```
