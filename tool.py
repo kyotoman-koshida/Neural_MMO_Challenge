@@ -228,7 +228,8 @@ class Toolkit:
         assert isinstance(startby, str)
         assert isinstance(registry, str)
 
-        submission = "my-submission"
+        # (越田)この部分を提出したいsubmission.pyのディレクトリに変える？
+        submission = "my-submission/baseline"
         try:
             subm.check(submission)
         except Exception as e:
