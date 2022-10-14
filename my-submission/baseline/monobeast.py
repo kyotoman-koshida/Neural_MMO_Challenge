@@ -32,6 +32,7 @@ to_torch_dtype = {
 }
 
 # yapf: disable
+### （越田）以下は、コマンドラインで引数を設定するためのargparseの実装！！
 parser = argparse.ArgumentParser(description="PyTorch Scalable Agent")
 parser.add_argument("--env", type=str, default="Neurips2022-NMMO",
                     help="Gym environment.")
@@ -86,6 +87,7 @@ parser.add_argument("--learning_rate", default=0.00048,
 parser.add_argument("--grad_norm_clipping", default=40.0, type=float,
                     help="Global gradient norm clip.")
 # yapf: enable
+### (越田)ここまでargparseの実装！！
 
 logging.basicConfig(
     format=("[%(levelname)s:%(process)d %(module)s:%(lineno)d %(asctime)s] "
@@ -457,7 +459,8 @@ def checkpoint(flags, model: nn.Module, step: int):
     if flags.disable_checkpoint:
         return
     checkpointpath = Path(flags.savedir).joinpath(flags.xpid)
-    logging.info(f"Saving checkpoint to {checkpointpath}")
+    logging.info(f"Saving checkpoint to {checkpointpath}")# どこにチェックポイントファイルを保存したのかの表示
+    print("saving checkpoint to ", checkpointpath)# どこにチェックポイントファイルを保存したのかの表示
     torch.save(
         {
             "model_state_dict": model.state_dict(),
@@ -466,7 +469,7 @@ def checkpoint(flags, model: nn.Module, step: int):
         checkpointpath.joinpath(f"model_{step}.pt"),
     )
 
-
+### (越田)flagsはコマンドラインから読み込んだ引数たちのことかな？
 def train(flags):  # pylint: disable=too-many-branches, too-many-statements
     if flags.xpid is None:
         flags.xpid = f"monobeast-{time.strftime('%Y%m%d-%H%M%S')}"
@@ -502,9 +505,11 @@ def train(flags):  # pylint: disable=too-many-branches, too-many-statements
     learner_model = Net().to(device=flags.device)
     if flags.checkpoint_path is not None:
         logging.info(f"load checkpoint: {flags.checkpoint_path}")
+        # 下の2行は自作部分
         previous_checkpoint = torch.load(flags.checkpoint_path, map_location=torch.device('cpu'))#CPUで代用するオプションを利用している。元々は下の一文だった。
         # previous_checkpoint = torch.load(flags.checkpoint_path)
         learner_model.load_state_dict(previous_checkpoint["model_state_dict"])
+        print('チェックポイントからロードしました！')# 自作のチェックポイント読み込み確認メッセージ
     actor_model.share_memory()
     actor_model.load_state_dict(learner_model.state_dict())
 
@@ -544,6 +549,7 @@ def train(flags):  # pylint: disable=too-many-branches, too-many-statements
         "grad_norm",
         "valid_data_frac",
     ]
+    #主にこの部分を出力として見ている！
     logger.info("# Step\t{}".format("\t".join(stat_keys)))
 
     step, stats = 0, {}
@@ -586,6 +592,7 @@ def train(flags):  # pylint: disable=too-many-branches, too-many-statements
             start_time = timer()
             time.sleep(30)
 
+            #もし最後にチェックポイントを保存した時よりも、設定したチェックポイント間隔(checkpoint_interval)以上時が進んでいれば新しくチェックポイント保存する
             if timer() - last_checkpoint_time > flags.checkpoint_interval:
                 checkpoint(flags, learner_model, step)
                 last_checkpoint_time = timer()
@@ -612,6 +619,7 @@ def train(flags):  # pylint: disable=too-many-branches, too-many-statements
                 f"Steps {step} @ {sps:.1f} SPS. Loss {total_loss}. {mean_return}Stats:\n{pprint.pformat(stats)}"
             )
     except KeyboardInterrupt:
+        checkpoint(flags, learner_model, step)#自作部分。キーボードでストップかけた時にも途中保存されるようにする！
         return  # Try joining actors then quit.
     else:
         learner_thread.join()
