@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import json
+import logging
 import traceback
 import termcolor
 import threading
@@ -14,6 +15,7 @@ from subprocess import CalledProcessError
 
 from neurips2022nmmo import submission as subm
 
+# (越田)これはdockerのためのもの?
 IMAGE = "neurips2022nmmo/submission-runtime"
 CONTAINER = "neurips2022-nmmo-runner"
 PORT = 12343
@@ -165,7 +167,8 @@ def rollout(submission_path: str, startby: str, registry: str):
         sys.exit(1)
 
     from neurips2022nmmo import ProxyTeam
-    team = ProxyTeam("my-submission", Config(), "127.0.0.1", PORT)
+    team = ProxyTeam("my-submission/baseline/", Config(), "127.0.0.1", PORT)# 越田の変更部分
+    # team = ProxyTeam("my-submission", Config(), "127.0.0.1", PORT)
 
     try:
         from neurips2022nmmo import RollOut, scripted
@@ -229,9 +232,11 @@ class Toolkit:
         assert isinstance(registry, str)
 
         # (越田)この部分を提出したいsubmission.pyのディレクトリに変える？
-        submission = "my-submission/baseline"
+        submission = "my-submission/baseline/"
         try:
             subm.check(submission)
+            print(submission)
+            logging.info('submission:{submission}')
         except Exception as e:
             traceback.print_exc()
             err(str(e))
