@@ -17,6 +17,7 @@ class RandomTeam(Team):
                                    len(action.Direction.edges) - 1)
                 }
             }
+        print("ーーーーーーーーRandomTeamを使ってるよーーーーーーーー")
         return actions
 
 class Submission:

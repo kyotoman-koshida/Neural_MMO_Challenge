@@ -69,3 +69,4 @@ class Submission:
         "checkpoint_path":
         Path(__file__).parent / "checkpoints" / "model_2757376.pt"
     }
+    print("ーーーーーーーMonoBeastを使ってるよーーーーーーー")
