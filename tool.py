@@ -175,7 +175,7 @@ def rollout(submission_path: str, startby: str, registry: str):
         ro = RollOut(
             Config(),
             [
-                scripted.RandomTeam(f"random-{i}", Config())
+                scripted.MixtureTeam(f"monobeast-{i}", Config())
                 for i in range(len(CompetitionConfig.PLAYERS) - 1)
             ] + [team],
             True,
