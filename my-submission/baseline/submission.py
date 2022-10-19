@@ -67,6 +67,7 @@ class Submission:
     team_klass = MonobeastBaseline
     init_params = {
         "checkpoint_path":
-        Path(__file__).parent / "checkpoints" / "model_2757376.pt"
+        # Path(__file__).parent / "checkpoints" / "model_2757376.pt"
+        Path(__file__).parent / "checkpoints" / "model_38912.pt"
     }
     print("ーーーーーーーMonoBeastを使ってるよーーーーーーー")

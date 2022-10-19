@@ -51,9 +51,11 @@ class RewardParser:
             r -= (curr["DamageTaken"] - prev["DamageTaken"]) * 0.01
             # Starvation penalty
             if agent_id in food and food[agent_id] == 0:
-                r -= 0.1
+                # r -= 0.1 #こちらがオリジナルのペナルティ
+                r -= 1#空腹のペナルティを大きくとってみた
             if agent_id in water and water[agent_id] == 0:
-                r -= 0.1
+                # r -= 0.1 #こちらがオリジナルのペナルティ
+                r -= 1#渇水のペナルティを大きくとってみた
 
             # phase2 only
             if self.phase == "phase2":
