@@ -506,8 +506,8 @@ def train(flags):  # pylint: disable=too-many-branches, too-many-statements
     if flags.checkpoint_path is not None:
         logging.info(f"load checkpoint: {flags.checkpoint_path}")
         # 下の2行は自作部分
-        # previous_checkpoint = torch.load(flags.checkpoint_path, map_location=torch.device('cpu'))#CPUで代用するオプションを利用している。元々は下の一文だった。
-        previous_checkpoint = torch.load(flags.checkpoint_path)
+        previous_checkpoint = torch.load(flags.checkpoint_path, map_location=torch.device('cpu'))#CPUで代用するオプションを利用している。元々は下の一文だった。
+        # previous_checkpoint = torch.load(flags.checkpoint_path)
         learner_model.load_state_dict(previous_checkpoint["model_state_dict"])
         print('チェックポイントからロードしました！')# 自作のチェックポイント読み込み確認メッセージ
     actor_model.share_memory()
