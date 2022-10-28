@@ -1,3 +1,2 @@
 Saving logs data to ./results/nmmo/logs.csv
 Saving logs' fields to ./results/nmmo/fields.csv
-Updated log fields: ['_tick', '_time', 'step', 'total_loss', 'mean_episode_return', 'mean_episode_step', 'max_episode_step', 'min_episode_step', 'policy_loss', 'upgo_loss', 'value_loss', 'entropy_loss', 'advantage', 'policy_clip_frac', 'grad_norm', 'valid_data_frac']

@@ -1,5 +1,5 @@
 rm -r results/nmmo
-python monobeast.py \
+python ppo_monobeast.py \
     --total_steps 1000000000 \
     --learning_rate 0.0001 \
     --entropy_coef 0.005 \
